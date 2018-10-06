@@ -1,0 +1,47 @@
+/*white cube*/
+.c1 {
+    height: 64px;
+    width: 64px;
+    background-image: url(../img/1.gif);
+}
+
+
+/*red cube*/
+.c2 {
+    height: 64px;
+    width: 64px;
+    background: url(../img/2.gif);
+}
+
+
+/*log cube*/
+.c3 {
+    height: 64px;
+    width: 64px;
+    background: url(../img/3.gif);
+}
+
+
+/*arch 1*/
+.c30 {
+    height: 64px;
+    width: 64px;
+    background: url(../img/30.gif);
+}
+
+
+/*arch 2*/
+.c31 {
+    height: 64px;
+    width: 64px;
+    background: url(../img/31.gif);
+}
+
+
+/*pyramid*/
+.c20 {
+    height: 128px;
+    width: 64px;
+    background: url(../img/20.gif);
+    transform: translateY(-64px);
+}
