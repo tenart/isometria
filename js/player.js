@@ -1,6 +1,6 @@
 var pixelCoords, pX, pY;
 
-function movePlayer() {
+function updatePlayer() {
     pixelCoords = gridToIso(player);
     pX = pixelCoords.x + 256 - 32;
     pY = pixelCoords.y - 32;
@@ -11,30 +11,30 @@ function movePlayer() {
 function movePlayerTo(x, y) {
     player.x = x;
     player.y = y;
-    movePlayer();
+    updatePlayer();
 }
 function movePlayerTo(x, y, z) {
     player.x = x;
     player.y = y;
     player.z = z;
-    movePlayer();
+    updatePlayer();
 }
 
 function moveUp() {
     player.y--;
-    movePlayer();
+    updatePlayer();
 }
 function moveDown() {
     player.y++;
-    movePlayer();
+    updatePlayer();
 }
 function moveLeft() {
     player.x--;
-    movePlayer();
+    updatePlayer();
 }
 function moveRight() {
     player.x++;
-    movePlayer();
+    updatePlayer();
 }
 
 listener.simple_combo("up", moveUp);
@@ -46,4 +46,4 @@ listener.simple_combo("a", moveLeft);
 listener.simple_combo("right", moveRight);
 listener.simple_combo("d", moveRight);
 
-movePlayer();
+updatePlayer();
