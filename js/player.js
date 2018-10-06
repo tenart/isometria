@@ -1,9 +1,23 @@
+var pixelCoords, pX, pY;
+
 function movePlayer() {
-    var pixelCoords = gridToIso(player);
-    var pX = pixelCoords.x + 256 - 32;
-    var pY = pixelCoords.y - 32;
+    pixelCoords = gridToIso(player);
+    pX = pixelCoords.x + 256 - 32;
+    pY = pixelCoords.y - 32;
     $("#player").css("left", pX);
     $("#player").css("top", pY);
+}
+
+function movePlayerTo(x, y) {
+    player.x = x;
+    player.y = y;
+    movePlayer();
+}
+function movePlayerTo(x, y, z) {
+    player.x = x;
+    player.y = y;
+    player.z = z;
+    movePlayer();
 }
 
 function moveUp() {
