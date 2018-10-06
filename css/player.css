@@ -4,4 +4,5 @@
     background: url(../img/3.gif);
     position: absolute;
     z-index: 99;
+    transition: left .2s, top .2s;
 }
