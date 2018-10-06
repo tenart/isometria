@@ -1,4 +1,5 @@
 //nxmxo cube
+//(gridCoords(n,m,o), gridCoords(x,y,z), material type)
 function drawRect(dimension, position, materialID){
   for(i = 0; i < dimension.x; i++){
     for(j = 0; j < dimension.y; j++){
@@ -12,6 +13,7 @@ function drawRect(dimension, position, materialID){
 }
 
 //nxnxn cube
+//(size, gridCoords(x,y,z), material type)
 function drawNCube(n, position, materialID){
   drawRect(gridCoords(n,n,n), position, materialID);
 }
