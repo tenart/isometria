@@ -126,8 +126,7 @@ $(".floor_button").click(function () {
         y: y,
         z: 0
     }
-    var materialID = 1;
-    updateArray(map3d, gridCoords, materialID);
+    updateArray(map3d, gridCoords, buildID);
     drawIso();
 })
 
@@ -186,8 +185,7 @@ $("#face_left").click(function () {
         y: parseInt($(this).closest("#face_selector").attr("data-y"), 10) + 1,
         z: parseInt($(this).closest("#face_selector").attr("data-z"), 10)
     }
-    var materialID = 1;
-    updateArray(map3d, gridCoords, materialID);
+    updateArray(map3d, gridCoords, buildID);
     drawIso();
 })
 
@@ -200,8 +198,7 @@ $("#face_right").click(function () {
         y: parseInt($(this).closest("#face_selector").attr("data-y"), 10),
         z: parseInt($(this).closest("#face_selector").attr("data-z"), 10)
     }
-    var materialID = 1;
-    updateArray(map3d, gridCoords, materialID);
+    updateArray(map3d, gridCoords, buildID);
     drawIso();
 })
 
@@ -214,8 +211,7 @@ $("#face_top").click(function () {
         y: parseInt($(this).closest("#face_selector").attr("data-y"), 10),
         z: parseInt($(this).closest("#face_selector").attr("data-z"), 10) + 1
     }
-    var materialID = 1;
-    updateArray(map3d, gridCoords, materialID);
+    updateArray(map3d, gridCoords, buildID);
     drawIso();
 })
 

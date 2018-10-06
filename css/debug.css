@@ -1,9 +1,32 @@
-#developer-window {
+.developer-window {
     position: absolute;
     left: 20;
     top: 60;
     z-index: 999;
-    height: 200px;
+    min-height: 10px;
     width: 200px;
+    padding: 10px;
+    border-top: 20px solid #d6d6d6;
     background-color: white;
+    border-radius: 4px;
+}
+
+#debug-materials {
+	font-size: 0;
+    padding: 0;
+}
+
+#debug-materials button {
+    width: 33%;
+    outline: none;
+    
+}
+
+#debug-materials button img {
+    width: 32px;
+}
+
+#debug-materials button.active {
+	background: #61bcff;
+    border: 1px solid rgba(0, 0, 0, 0.35);
 }

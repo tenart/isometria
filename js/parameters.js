@@ -11,3 +11,5 @@ var player = {
     y: 0,
     z: 0
 }
+
+var buildID = 1;    // Specify default building material
