@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Untitled Document</title>
+        <link href="css/reset.css" rel="stylesheet" type="text/css">
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <button id="clear_all">CLEAR ALL</button>
+        <button id="search">SEARCH A</button>
+        <button id="search_b">SEARCH B</button>
+        <button id="search_c">SEARCH C</button>
+        <button id="search_d">SEARCH D</button>
+        <button id="dimensions">FIND DIMENSIONS</button>
+        <div id="castle_wrapper">
+            <div id="ground"></div>
+            <div id="draw_wrapper"></div>
+            <img id="indicator" src="img/selected.gif">
+            <div id="floor_selector">
+                <div id="floor_widget_wrap">
+                
+                </div>
+            </div>
+            <div id="ground_shading">
+                
+            </div>
+            <div id="face_selector" data-x="0" data-y="0">
+                <div id="widget_wrap">
+                    <div class="face_button" id="face_top"></div>
+                    <div class="face_button" id="face_left"></div>
+                    <div class="face_button" id="face_right"></div>
+                </div>
+                <div id="cube_delete_icon"></div>
+            </div>
+<!--            <img id="grid" src="img/grid-solid.gif">-->
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/keypress-2.1.5.min.js"></script>
+    <script src="js/parameters.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/playground.js"></script>
+</html>
