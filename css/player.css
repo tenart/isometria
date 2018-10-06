@@ -1,0 +1,7 @@
+#player {
+    height: 64px;
+    width: 64px;
+    background: url(../img/3.gif);
+    position: absolute;
+    z-index: 99;
+}
