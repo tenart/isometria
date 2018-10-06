@@ -1,0 +1,1 @@
+var x = parseInt($(this).attr("data-x"), 10);

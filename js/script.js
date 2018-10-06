@@ -17,10 +17,10 @@ $("#floor_widget_wrap").css("margin-left", height * tile / 4 * -1);
 $("#floor_widget_wrap").css("margin-top", width * tile / 4 * -1);
 
 // DYNAMICALLY ADDS FLOOR GRID BUTTONS AND OTHER GRAPHIC
-
-for (i = 0; i < height * width; i++) {
-    $("#floor_widget_wrap").append("<div class='floor_button'></div>");
-}
+//
+//for (i = 0; i < height * width; i++) {
+//    $("#floor_widget_wrap").append("<div class='floor_button'></div>");
+//}
 
 function randBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -49,6 +49,7 @@ function drawCube(gridCoords, materialID) {
         var pixelCoords = gridToIso(gridCoords);
         var pX = pixelCoords.x + 256 - 32;
         var pY = pixelCoords.y - 32;
+        //$(this).attr("data-x");
         $("#draw_wrapper").append("<div class='cube c" + materialID + "' data-materialID='" + materialID + "' data-x='" + gridCoords.x + "' data-y='" + gridCoords.y + "' data-z='" + gridCoords.z + "' style='top:" + pY + "px; left:" + pX + "px'></div>")
     }
 }
@@ -108,172 +109,6 @@ function gridCoords(x, y, z) {
     return object;
 }
 
-var template1 = [
-    [
-        [2, 0, 2],
-        [0, 1, 0],
-        [2, 0, 2]
-    ],
-    [
-        [2, 2, 2],
-        [2, 0, 2],
-        [2, 2, 2]
-    ],
-    [
-        [2, 2, 2],
-        [2, 0, 2],
-        [2, 2, 2]
-    ]
-];
-
-var template2 = [
-    [
-        [2, 2, 2],
-        [1, 0, 1],
-        [2, 2, 2]
-    ],
-    [
-        [2, 2, 2],
-        [2, 1, 2],
-        [2, 2, 2]
-    ]
-];
-
-var template3 = [
-    [
-        [2, 1, 2],
-        [2, 0, 2],
-        [2, 1, 2]
-    ],
-    [
-        [2, 2, 2],
-        [2, 1, 2],
-        [2, 2, 2]
-    ]
-];
-
-function searchMap(targetArray, template, tempDimensions, tempDatum) {
-
-    var xDim = tempDimensions.x;
-    var yDim = tempDimensions.y;
-    var zDim = tempDimensions.z;
-
-    var zUpBound = zDim - (tempDatum.z + 1);
-    var zDnBound = tempDatum.z;
-
-    var yUpBound = yDim - (tempDatum.y + 1);
-    var yDnBound = tempDatum.y;
-
-    var xUpBound = xDim - (tempDatum.x + 1);
-    var xDnBound = tempDatum.x;
-
-    var matches = [];
-
-    var count = 0;
-
-    for (z = 0; z < layers; z++) {
-        for (y = 0; y < height; y++) {
-            for (x = 0; x < width; x++) {
-                if (targetArray[z][y][x] == template[tempDatum.z][tempDatum.y][tempDatum.x]) {
-                    count++;
-                    var currentBuffer = new Array(zDim);
-                    for (zz = 0; zz < zDim; zz++) {
-                        currentBuffer[zz] = new Array(yDim);
-                        for (yy = 0; yy < yDim; yy++) {
-                            currentBuffer[zz][yy] = new Array(xDim)
-                            for (xx = 0; xx < xDim; xx++) {
-                                currentBuffer[zz][yy][xx] = 0;
-
-                                var currentX = x - (xDnBound - xx);
-                                var currentY = y - (yDnBound - yy);
-                                var currentZ = z - (zDnBound - zz);
-
-                                if (currentX < 0 ||
-                                    currentY < 0 ||
-                                    currentZ < 0 ||
-                                    currentX > width - 1 ||
-                                    currentY > height - 1 ||
-                                    currentZ > layers - 1) {
-                                    currentBuffer[zz][yy][xx] = 0;
-                                } else {
-                                    currentBuffer[zz][yy][xx] = targetArray[currentZ][currentY][currentX];
-                                }
-                            }
-                        }
-                    }
-
-                    var matchStatus;
-                    for (zz = 0; zz < zDim; zz++) {
-                        for (yy = 0; yy < yDim; yy++) {
-                            for (xx = 0; xx < xDim; xx++) {
-                                var rule = template[zz][yy][xx];
-                                var current = currentBuffer[zz][yy][xx];
-                                if (rule == 2) {
-                                    matchStatus = true;
-                                } else {
-                                    if (current == rule) {
-                                        matchStatus = true;
-                                    } else {
-                                        matchStatus = false;
-                                        break
-                                    }
-                                }
-                            }
-
-                            if (matchStatus == false) {
-                                break;
-                            }
-
-                        }
-
-                        if (matchStatus == false) {
-                            break;
-                        }
-
-                    }
-                    if (matchStatus == false) {
-                        console.log(x + " " + y + " " + z + " disqualified");
-                    } else {
-                        matches.push(gridCoords(x, y, z));
-                        console.log(x + " " + y + " " + z + " matched");
-                    }
-                }
-            }
-        }
-    }
-    console.log(matches.length + "/" + count + " matched");
-    return matches;
-}
-
-$("#search").click(function () {
-    var matches = searchMap(map3d, template1, gridCoords(3, 3, 3), gridCoords(1, 1, 0));
-    for (i = 0; i < matches.length; i++) {
-        var coords = matches[i];
-        coords.z++;
-        updateArray(map3d, coords, 20);
-    }
-    drawIso();
-})
-
-$("#search_b").click(function () {
-    var matches = searchMap(map3d, template2, gridCoords(3, 3, 2), gridCoords(1, 1, 1));
-    for (i = 0; i < matches.length; i++) {
-        var coords = matches[i];
-        coords.z--;
-        updateArray(map3d, coords, 31);
-    }
-    drawIso();
-})
-
-$("#search_c").click(function () {
-    var matches = searchMap(map3d, template3, gridCoords(3, 3, 2), gridCoords(1, 1, 1));
-    for (i = 0; i < matches.length; i++) {
-        var coords = matches[i];
-        coords.z--;
-        updateArray(map3d, coords, 30);
-    }
-    drawIso();
-})
 
 var lastSaved = localStorage.getItem("savedMap3d");
 
@@ -438,6 +273,8 @@ function update() {
     }
 }
 
+//TODO
+//print map that lets you print out as text and save
 function printMap3D(){
   for(i = 0; i < map3d.length; i++){
     for(j = 0; j < map3d[i].length; j++){
