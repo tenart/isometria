@@ -1,0 +1,9 @@
+#developer-window {
+    position: absolute;
+    left: 20;
+    top: 60;
+    z-index: 999;
+    height: 200px;
+    width: 200px;
+    background-color: white;
+}
