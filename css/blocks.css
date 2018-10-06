@@ -45,3 +45,24 @@
     background: url(../img/20.gif);
     transform: translateY(-64px);
 }
+
+/*stairs 1*/
+.c101 {
+    height: 64px;
+    width: 64px;
+    background: url(../img/101.gif);
+}
+
+/*stairs 2*/
+.c102 {
+    height: 64px;
+    width: 64px;
+    background: url(../img/102.gif);
+}
+
+/*stairs 3*/
+.c103 {
+    height: 64px;
+    width: 64px;
+    background: url(../img/103.gif);
+}
