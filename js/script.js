@@ -39,7 +39,7 @@ function gridToIso(input) {
     return output;
 }
 
-// USED BY drawIso() TO DRAW ONE CUBE AT A TIME. 
+// USED BY drawIso() TO DRAW ONE CUBE AT A TIME.
 // CAN BE CALLED DIRECTLY TO DRAW CUBES BUT WILL CREATE LAYERING ARTIFACT
 
 function drawCube(gridCoords, materialID) {
@@ -80,11 +80,11 @@ function drawIso() {
     }
 }
 
-// USED TO UPDATE A VALUE FROM 
+// USED TO UPDATE A VALUE FROM
 
 function updateArray(targetArray, gridCoords, materialID) {
-    if (gridCoords.x < 0 || 
-        gridCoords.y < 0 || 
+    if (gridCoords.x < 0 ||
+        gridCoords.y < 0 ||
         gridCoords.z < 0 ||
         gridCoords.x > width - 1 ||
         gridCoords.y > height - 1 ||
@@ -436,6 +436,14 @@ function update() {
     } else {
         $("#cube_delete_icon").hide();
     }
+}
+
+function printMap3D(){
+  for(i = 0; i < map3d.length; i++){
+    for(j = 0; j < map3d[i].length; j++){
+      console.log(map3d[i][j])
+    }
+  }
 }
 
 setInterval(update, 1);
