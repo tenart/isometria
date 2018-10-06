@@ -31,3 +31,5 @@ listener.simple_combo("left", moveLeft);
 listener.simple_combo("a", moveLeft);
 listener.simple_combo("right", moveRight);
 listener.simple_combo("d", moveRight);
+
+movePlayer();
