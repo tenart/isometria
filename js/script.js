@@ -1,4 +1,3 @@
-
 var listener = new window.keypress.Listener();
 
 var map3d = new Array(layers);
