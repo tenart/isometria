@@ -18,7 +18,6 @@ function level1() {
 
     movePlayerTo(0,0,9.5);
     updatePlayer();
-        
-}
+}   
 
 level1();

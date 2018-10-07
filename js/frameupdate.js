@@ -27,7 +27,10 @@ app.ticker.add(function(delta) {
         playerSprite.x --;
     }
     
-    
+    /*
+    var ctx = document.getElementById('myView').getContext('webgl');
+    var c = ctx.readPixel(1, 1, 1, 1).data;
+    */
     
     /*
     document.getElementById('debug-coordinates').innerHTML = 
@@ -36,5 +39,5 @@ app.ticker.add(function(delta) {
         + '<p>Window width: ' + window.innerWidth + ' </p>'
         + '<p>Window height: ' + window.innerHeight + '</p>'
         ;
-    */
+    */ 
 });
