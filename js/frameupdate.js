@@ -9,14 +9,32 @@ app.ticker.add(function(delta) {
     //container.y = (window.innerHeight - container.height) / 2;
         
     container.x = window.innerWidth/2;
-    container.y = window.innerHeight/2;
+    container.y = window.innerHeight/1.5;
+    
+    if(s) {
+        playerSprite.y ++;
+    }
+    
+    if(w) {
+        playerSprite.y --;
+    }
+    
+    if(d) {
+        playerSprite.x ++;
+    }
+    
+    if(a) {
+        playerSprite.x --;
+    }
     
     
     
+    /*
     document.getElementById('debug-coordinates').innerHTML = 
         '<p>Container width: ' + container.width + ' </p>'
         + '<p>Container height: ' + container.height + '</p>'
         + '<p>Window width: ' + window.innerWidth + ' </p>'
         + '<p>Window height: ' + window.innerHeight + '</p>'
         ;
+    */
 });

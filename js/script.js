@@ -39,25 +39,16 @@ function gridToIso(input) {
     return output;
 }
 
+function removeCube() {
+    alert();
+    //$("#debug-coordinates").text( "X:" + this.x );
+}
+
 // USED BY drawIso() TO DRAW ONE CUBE AT A TIME.
 // CAN BE CALLED DIRECTLY TO DRAW CUBES BUT WILL CREATE LAYERING ARTIFACT
 
 function drawCube(gridCoords, materialID) {
-    if (materialID == 0) {
-        return false;
-    } else {
-        var pixelCoords = gridToIso(gridCoords);
-        var pX = pixelCoords.x;
-        var pY = pixelCoords.y;
-        //$(this).attr("data-x");
-        //$("#draw_wrapper").append("<div class='cube c" + materialID + "' data-materialID='" + materialID + "' data-x='" + gridCoords.x + "' data-y='" + gridCoords.y + "' data-z='" + gridCoords.z + "' style='top:" + pY + "px; left:" + pX + "px'></div>")
-        var sprite = new PIXI.Sprite(PIXI.Texture.fromImage('../img/' + materialID + '.gif'));
-        sprite.anchor.set(0.5);
-        sprite.x = pX;
-        sprite.y = pY;
-        sprite.zIndex = 0;
-        container.addChild(sprite);
-    }
+                
 }
 
 function clearFaceSelector() {
@@ -81,12 +72,27 @@ function drawIso() {
                     y: y,
                     z: z
                 }
-                drawCube(gridCoords, map3d[z][y][x]);
+                //drawCube(gridCoords, map3d[z][y][x]);
+                var materialID = map3d[z][y][x];
+                if (materialID != 0) {
+                    var pixelCoords = gridToIso(gridCoords);
+                    var pX = pixelCoords.x;
+                    var pY = pixelCoords.y;
+                    //$("#draw_wrapper").append("<div class='cube c" + materialID + "' data-materialID='" + materialID + "' data-x='" + gridCoords.x + "' data-y='" + gridCoords.y + "' data-z='" + gridCoords.z + "' style='top:" + pY + "px; left:" + pX + "px'></div>")
+                    var cubeSprite = new PIXI.Sprite(PIXI.Texture.fromImage('../img/' + materialID + '.gif'));
+                    cubeSprite.anchor.set(0.5);
+                    cubeSprite.x = pX;
+                    cubeSprite.y = pY;
+                    cubeSprite.zIndex = 0;
+                    container.addChild(cubeSprite);
+                }
             }
         }
     }
     container.addChild(playerSprite);
 }
+
+
 
 // USED TO UPDATE A VALUE FROM
 

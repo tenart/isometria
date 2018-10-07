@@ -26,7 +26,7 @@ function movePlayerTo(x, y, z) {
 //left = down
 //down = right
 //right = up
-var amount = 1;
+var amount = 1/32;
 
 function moveUp() {
 //    player.y -= amount;
@@ -52,7 +52,7 @@ function moveRight() {
     player.y -= amount;
     updatePlayer();
 }
-
+/*
 listener.simple_combo("up", moveUp);
 listener.simple_combo("w", moveUp);
 listener.simple_combo("down", moveDown);
@@ -61,5 +61,55 @@ listener.simple_combo("left", moveLeft);
 listener.simple_combo("a", moveLeft);
 listener.simple_combo("right", moveRight);
 listener.simple_combo("d", moveRight);
+*/
+
+var w = false;
+var a = false;
+var s = false;
+var d = false;
+
+listener.register_combo({
+    "keys": "w",
+    "on_keydown": function () {
+        w = true;
+    },
+    "on_keyup": function () {
+        w = false;
+    },
+    "prevent_default": true
+});
+
+listener.register_combo({
+    "keys": "a",
+    "on_keydown": function () {
+        a = true;
+    },
+    "on_keyup": function () {
+        a = false;
+    },
+    "prevent_default": true
+});
+
+listener.register_combo({
+    "keys": "s",
+    "on_keydown": function () {
+        s = true;
+    },
+    "on_keyup": function () {
+        s = false;
+    },
+    "prevent_default": true
+});
+
+listener.register_combo({
+    "keys": "d",
+    "on_keydown": function () {
+        d = true;
+    },
+    "on_keyup": function () {
+        d = false;
+    },
+    "prevent_default": true
+});
 
 updatePlayer();
