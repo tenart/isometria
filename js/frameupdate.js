@@ -11,21 +11,19 @@ app.ticker.add(function(delta) {
     container.x = window.innerWidth/2;
     container.y = window.innerHeight/1.5;
     
-    if(s) {
-        playerSprite.y ++;
-    }
-    
     if(w) {
         playerSprite.y --;
     }
-    
+    if(s) {
+        playerSprite.y ++;
+    }
+    if(a) {
+        playerSprite.x --;
+    }
     if(d) {
         playerSprite.x ++;
     }
     
-    if(a) {
-        playerSprite.x --;
-    }
     
     
     
