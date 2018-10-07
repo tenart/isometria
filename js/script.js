@@ -145,6 +145,7 @@ $(".floor_button").click(function () {
 
 $("#face_selector").hide();
 
+var canvas = document.getElementById("myView");
 canvas.addEventListener('mousemove', function() {
     console.log("test");
 });
