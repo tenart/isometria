@@ -21,23 +21,19 @@ function movePlayerTo(x, y, z) {
 }
 
 function moveUp() {
-//    player.y--;
-    player.y -= 0.5;
+    player.y--;
     updatePlayer();
 }
 function moveDown() {
-//    player.y++;
-    player.y += 0.5;
+    player.y++;
     updatePlayer();
 }
 function moveLeft() {
-//    player.x--;
-    player.x -= 0.5;
+    player.x--;
     updatePlayer();
 }
 function moveRight() {
-//    player.x++;
-    player.x += 0.5;
+    player.x++;
     updatePlayer();
 }
 
