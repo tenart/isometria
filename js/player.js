@@ -15,6 +15,7 @@ function movePlayerTo(x, y) {
     player.y = y;
     updatePlayer();
 }
+
 function movePlayerTo(x, y, z) {
     player.x = x;
     player.y = y;
@@ -26,29 +27,32 @@ function movePlayerTo(x, y, z) {
 //left = down
 //down = right
 //right = up
-var amount = 1/32;
+var amount = 1 / 32;
 
 function moveUp() {
-//    player.y -= amount;
-    
+    //    player.y -= amount;
+
     player.x -= amount;
     updatePlayer();
 }
+
 function moveDown() {
-//    player.y += amount;
-    
+    //    player.y += amount;
+
     player.x += amount;
     updatePlayer();
 }
+
 function moveLeft() {
-//    player.x -= amount;
-    
+    //    player.x -= amount;
+
     player.y += amount;
     updatePlayer();
 }
+
 function moveRight() {
-//    player.x += amount;
-    
+    //    player.x += amount;
+
     player.y -= amount;
     updatePlayer();
 }
@@ -68,48 +72,80 @@ var a = false;
 var s = false;
 var d = false;
 
-listener.register_combo({
-    "keys": "w",
-    "on_keydown": function () {
-        w = true;
-    },
-    "on_keyup": function () {
-        w = false;
-    },
-    "prevent_default": true
-});
+listener.register_many([
+    {
+        "keys": "up",
+        "on_keydown": function () {
+            w = true;
+        },
+        "on_keyup": function () {
+            w = false;
+        },
+        "prevent_default": true
+    }, {
+        "keys": "w",
+        "on_keydown": function () {
+            w = true;
+        },
+        "on_keyup": function () {
+            w = false;
+        },
+        "prevent_default": true
+    }, {
+        "keys": "down",
+        "on_keydown": function () {
+            s = true;
+        },
+        "on_keyup": function () {
+            s = false;
+        },
+        "prevent_default": true
+    }, {
+        "keys": "s",
+        "on_keydown": function () {
+            s = true;
+        },
+        "on_keyup": function () {
+            s = false;
+        },
+        "prevent_default": true
+    }, {
+        "keys": "left",
+        "on_keydown": function () {
+            a = true;
+        },
+        "on_keyup": function () {
+            a = false;
+        },
+        "prevent_default": true
+    }, {
+        "keys": "a",
+        "on_keydown": function () {
+            a = true;
+        },
+        "on_keyup": function () {
+            a = false;
+        },
+        "prevent_default": true
+    }, {
 
-listener.register_combo({
-    "keys": "a",
-    "on_keydown": function () {
-        a = true;
-    },
-    "on_keyup": function () {
-        a = false;
-    },
-    "prevent_default": true
-});
-
-listener.register_combo({
-    "keys": "s",
-    "on_keydown": function () {
-        s = true;
-    },
-    "on_keyup": function () {
-        s = false;
-    },
-    "prevent_default": true
-});
-
-listener.register_combo({
-    "keys": "d",
-    "on_keydown": function () {
-        d = true;
-    },
-    "on_keyup": function () {
-        d = false;
-    },
-    "prevent_default": true
-});
+        "keys": "right",
+        "on_keydown": function () {
+            d = true;
+        },
+        "on_keyup": function () {
+            d = false;
+        },
+        "prevent_default": true
+    }, {
+        "keys": "d",
+        "on_keydown": function () {
+            d = true;
+        },
+        "on_keyup": function () {
+            d = false;
+        },
+        "prevent_default": true
+}]);
 
 updatePlayer();
