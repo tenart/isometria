@@ -15,7 +15,7 @@ container.backgroundColor = 0xff0000;
 container.pivot.set(0.5,0.5);
 app.stage.addChild(container);
 
-var playerSprite = new PIXI.Sprite(PIXI.Texture.fromImage('../img/person.gif'))
+var playerSprite = new PIXI.Sprite(PIXI.Texture.fromImage('/img/person.gif'))
 playerSprite.anchor.set(0.5,1);
 playerSprite.zIndex = 9;
 
