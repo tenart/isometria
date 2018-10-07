@@ -2,10 +2,12 @@ var pixelCoords, pX, pY;
 
 function updatePlayer() {
     pixelCoords = gridToIso(player);
-    pX = pixelCoords.x + 256 - 32;
-    pY = pixelCoords.y - 32;
-    $("#player").css("left", pX);
-    $("#player").css("top", pY);
+    pX = pixelCoords.x;
+    pY = pixelCoords.y;
+    //$("#player").css("left", pX);
+    //$("#player").css("top", pY);
+    playerSprite.x = pX;
+    playerSprite.y = pY;
 }
 
 function movePlayerTo(x, y) {
@@ -14,7 +16,7 @@ function movePlayerTo(x, y) {
     updatePlayer();
 }
 function movePlayerTo(x, y, z) {
-    player.x = x + 0.5;
+    player.x = x;
     player.y = y;
     player.z = z;
     updatePlayer();
@@ -24,28 +26,30 @@ function movePlayerTo(x, y, z) {
 //left = down
 //down = right
 //right = up
+var amount = 1;
+
 function moveUp() {
-//    player.y -= 0.5;
+//    player.y -= amount;
     
-    player.x -= 0.5;
+    player.x -= amount;
     updatePlayer();
 }
 function moveDown() {
-//    player.y += 0.5;
+//    player.y += amount;
     
-    player.x += 0.5;
+    player.x += amount;
     updatePlayer();
 }
 function moveLeft() {
-//    player.x -= 0.5;
+//    player.x -= amount;
     
-    player.y += 0.5;
+    player.y += amount;
     updatePlayer();
 }
 function moveRight() {
-//    player.x += 0.5;
+//    player.x += amount;
     
-    player.y -= 0.5;
+    player.y -= amount;
     updatePlayer();
 }
 

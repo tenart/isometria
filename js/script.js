@@ -47,10 +47,16 @@ function drawCube(gridCoords, materialID) {
         return false;
     } else {
         var pixelCoords = gridToIso(gridCoords);
-        var pX = pixelCoords.x + 256 - 32;
-        var pY = pixelCoords.y - 32;
+        var pX = pixelCoords.x;
+        var pY = pixelCoords.y;
         //$(this).attr("data-x");
-        $("#draw_wrapper").append("<div class='cube c" + materialID + "' data-materialID='" + materialID + "' data-x='" + gridCoords.x + "' data-y='" + gridCoords.y + "' data-z='" + gridCoords.z + "' style='top:" + pY + "px; left:" + pX + "px'></div>")
+        //$("#draw_wrapper").append("<div class='cube c" + materialID + "' data-materialID='" + materialID + "' data-x='" + gridCoords.x + "' data-y='" + gridCoords.y + "' data-z='" + gridCoords.z + "' style='top:" + pY + "px; left:" + pX + "px'></div>")
+        var sprite = new PIXI.Sprite(PIXI.Texture.fromImage('../img/' + materialID + '.gif'));
+        sprite.anchor.set(0.5);
+        sprite.x = pX;
+        sprite.y = pY;
+        sprite.zIndex = 0;
+        container.addChild(sprite);
     }
 }
 
@@ -79,6 +85,7 @@ function drawIso() {
             }
         }
     }
+    container.addChild(playerSprite);
 }
 
 // USED TO UPDATE A VALUE FROM

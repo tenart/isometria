@@ -7,7 +7,7 @@ $(document).on("mouseover", ".cube", function () {
     x = parseInt($(this).attr("data-x"), 10);
     y = parseInt($(this).attr("data-y"), 10);
     z = parseInt($(this).attr("data-z"), 10);
-    updateCoordsWindow();
+    //updateCoordsWindow();
 });
 
 $(".developer-window").draggable();
@@ -22,7 +22,7 @@ function updateCoordsWindow() {
         ;
 }
 
-updateCoordsWindow();
+//updateCoordsWindow();
 
 $("#debug-materials button").click(function() {
     $("#debug-materials button").removeClass("active");

@@ -1,11 +1,11 @@
+canvas {
+    position: absolute;
+}
+
 body {
     background: #272727;
     font-family: monospace;
     image-rendering: pixelated;
-}
-
-button {
-    
 }
 
 #castle_wrapper {
