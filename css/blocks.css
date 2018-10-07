@@ -2,7 +2,7 @@
 .c1 {
     height: 64px;
     width: 64px;
-    background-image: url(../img/1.gif);
+    background-image: url(../isometria/img/1.gif);
 }
 
 
@@ -10,7 +10,7 @@
 .c2 {
     height: 64px;
     width: 64px;
-    background: url(../img/2.gif);
+    background: url(../isometria/img/2.gif);
 }
 
 
@@ -18,7 +18,7 @@
 .c3 {
     height: 64px;
     width: 64px;
-    background: url(../img/3.gif);
+    background: url(../isometria/img/3.gif);
 }
 
 
@@ -26,7 +26,7 @@
 .c30 {
     height: 64px;
     width: 64px;
-    background: url(../img/30.gif);
+    background: url(../isometria/img/30.gif);
 }
 
 
@@ -34,7 +34,7 @@
 .c31 {
     height: 64px;
     width: 64px;
-    background: url(../img/31.gif);
+    background: url(../isometria/img/31.gif);
 }
 
 
@@ -42,7 +42,7 @@
 .c20 {
     height: 128px;
     width: 64px;
-    background: url(../img/20.gif);
+    background: url(../isometria/img/20.gif);
     transform: translateY(-64px);
 }
 
@@ -50,19 +50,19 @@
 .c101 {
     height: 64px;
     width: 64px;
-    background: url(../img/101.gif);
+    background: url(../isometria/img/101.gif);
 }
 
 /*stairs 2*/
 .c102 {
     height: 64px;
     width: 64px;
-    background: url(../img/102.gif);
+    background: url(../isometria/img/102.gif);
 }
 
 /*stairs 3*/
 .c103 {
     height: 64px;
     width: 64px;
-    background: url(../img/103.gif);
+    background: url(../isometria/img/103.gif);
 }
