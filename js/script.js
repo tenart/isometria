@@ -107,7 +107,7 @@ function updateArray(targetArray, gridCoords, materialID) {
     } else {
         targetArray[gridCoords.z][gridCoords.y][gridCoords.x] = materialID;
         localStorage.setItem("savedMap3d", JSON.stringify(targetArray));
-        console.log("Location " + gridCoords.x + " " + gridCoords.y + " " + gridCoords.z + " successfully updated")
+//        console.log("Location " + gridCoords.x + " " + gridCoords.y + " " + gridCoords.z + " successfully updated")
     }
 }
 
@@ -145,49 +145,52 @@ $(".floor_button").click(function () {
 
 $("#face_selector").hide();
 
-$(document).on("mouseover", ".cube", function () {
-    var x = parseInt($(this).attr("data-x"), 10);
-    var y = parseInt($(this).attr("data-y"), 10);
-    var z = parseInt($(this).attr("data-z"), 10);
-    var pX = $(this).css("left");
-    var pY = $(this).css("top");
-    var lAdjacent;
-    var rAdjacent;
-    var uAdjacent;
-    $("#face_right").hide();
-    $("#face_left").hide();
-    if (z < layers - 1) {
-        if (map3d[z + 1][y][x] == 0) {
-            $("#face_top").show();
-        } else {
-            $("#face_top").hide();
-        }
-    } else {
-        $("#face_top").hide();
-    }
-    if (y < height - 1) {
-        if (map3d[z][y + 1][x] == 0) {
-            $("#face_left").show();
-        } else {
-            $("#face_left").hide();
-        }
-    } else {
-        $("#face_left").hide();
-    }
-    if (map3d[z][y][x + 1] == 0) {
-        $("#face_right").show();
-    } else {
-        $("#face_right").hide();
-    }
-    $("#grid_2d_debug_msg_4").text("4: cube x " + x);
-    $("#grid_2d_debug_msg_5").text("5: cube y " + y);
-    $("#face_selector").show();
-    $("#face_selector").css("left", pX);
-    $("#face_selector").css("top", pY);
-    $("#face_selector").attr("data-x", x);
-    $("#face_selector").attr("data-y", y);
-    $("#face_selector").attr("data-z", z);
-})
+canvas.addEventListener('mousemove', function() {
+    console.log("test");
+});
+//$(document).on("mouseover", ".cube", function () {
+//    var x = parseInt($(this).attr("data-x"), 10);
+//    var y = parseInt($(this).attr("data-y"), 10);
+//    var z = parseInt($(this).attr("data-z"), 10);
+//    var pX = $(this).css("left");
+//    var pY = $(this).css("top");
+//    var lAdjacent;
+//    var rAdjacent;
+//    var uAdjacent;
+//    $("#face_right").hide();
+//    $("#face_left").hide();
+//    if (z < layers - 1) {
+//        if (map3d[z + 1][y][x] == 0) {
+//            $("#face_top").show();
+//        } else {
+//            $("#face_top").hide();
+//        }
+//    } else {
+//        $("#face_top").hide();
+//    }
+//    if (y < height - 1) {
+//        if (map3d[z][y + 1][x] == 0) {
+//            $("#face_left").show();
+//        } else {
+//            $("#face_left").hide();
+//        }
+//    } else {
+//        $("#face_left").hide();
+//    }
+//    if (map3d[z][y][x + 1] == 0) {
+//        $("#face_right").show();
+//    } else {
+//        $("#face_right").hide();
+//    }
+//    $("#grid_2d_debug_msg_4").text("4: cube x " + x);
+//    $("#grid_2d_debug_msg_5").text("5: cube y " + y);
+//    $("#face_selector").show();
+//    $("#face_selector").css("left", pX);
+//    $("#face_selector").css("top", pY);
+//    $("#face_selector").attr("data-x", x);
+//    $("#face_selector").attr("data-y", y);
+//    $("#face_selector").attr("data-z", z);
+//})
 
 $("#face_left").click(function () {
     if (shiftPressed) {
