@@ -79,7 +79,7 @@ function drawIso() {
                     var pX = pixelCoords.x;
                     var pY = pixelCoords.y;
                     //$("#draw_wrapper").append("<div class='cube c" + materialID + "' data-materialID='" + materialID + "' data-x='" + gridCoords.x + "' data-y='" + gridCoords.y + "' data-z='" + gridCoords.z + "' style='top:" + pY + "px; left:" + pX + "px'></div>")
-                    var cubeSprite = new PIXI.Sprite(PIXI.Texture.fromImage('../img/' + materialID + '.gif'));
+                    var cubeSprite = new PIXI.Sprite(PIXI.Texture.fromImage('../isometria/img/' + materialID + '.gif'));
                     cubeSprite.anchor.set(0.5);
                     cubeSprite.x = pX;
                     cubeSprite.y = pY;
