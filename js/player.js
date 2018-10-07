@@ -14,26 +14,38 @@ function movePlayerTo(x, y) {
     updatePlayer();
 }
 function movePlayerTo(x, y, z) {
-    player.x = x;
+    player.x = x + 0.5;
     player.y = y;
     player.z = z;
     updatePlayer();
 }
 
+//up = left
+//left = down
+//down = right
+//right = up
 function moveUp() {
-    player.y -= 0.5;
-    updatePlayer();
-}
-function moveDown() {
-    player.y += 0.5;
-    updatePlayer();
-}
-function moveLeft() {
+//    player.y -= 0.5;
+    
     player.x -= 0.5;
     updatePlayer();
 }
-function moveRight() {
+function moveDown() {
+//    player.y += 0.5;
+    
     player.x += 0.5;
+    updatePlayer();
+}
+function moveLeft() {
+//    player.x -= 0.5;
+    
+    player.y += 0.5;
+    updatePlayer();
+}
+function moveRight() {
+//    player.x += 0.5;
+    
+    player.y -= 0.5;
     updatePlayer();
 }
 
