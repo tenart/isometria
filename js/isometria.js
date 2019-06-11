@@ -1,14 +1,14 @@
-/******************************
-*******************************
-***      isometria.js       ***
-***                         ***
-***  Authors: Jordan Wells  ***
-***           Tom Nguyen    ***
-***                         ***
-***  Date:    2019          ***
-***                         ***
-*******************************
-******************************/
+/*******************************
+ *******************************
+ ***      isometria.js       ***
+ ***                         ***
+ ***  Authors: Jordan Wells  ***
+ ***           Tom Nguyen    ***
+ ***                         ***
+ ***  Date:    2019          ***
+ ***                         ***
+ *******************************
+ ******************************/
 
 
 //***************************
@@ -348,11 +348,13 @@ function switchScene(scene) {
     camera.position.set(pos.position.x, pos.position.y, pos.position.z + 10);
 }
 
+//TODO
 //saves level
 function saveLevel() {
     var level = $('input[name="currentLevel"]').val;
 }
 
+//TODO
 //loads level
 function loadLevel() {
     var level = $('input[name="currentLevel"]').val;
@@ -456,7 +458,7 @@ function relFacePos(chapos, intersect) {
     var j = 0;
     var pos = chapos.clone();
     var position = intersect.object.position;
-    
+
     switch (intersect.faceIndex) {
         case 0:
         case 1: //right
@@ -489,7 +491,7 @@ function relFacePos(chapos, intersect) {
             j = -1;
             break;
     }
-    
+
     //switch for updating x/y/z
     switch (xyz) {
         case "x":
@@ -502,7 +504,7 @@ function relFacePos(chapos, intersect) {
             pos.z = position.z + j;
             break;
     }
-    
+
     //ensures pos is never more than 1 block from intersect
     if (Math.abs(position.x - pos.x) > 1) {
         pos.x = position.x;
@@ -513,7 +515,7 @@ function relFacePos(chapos, intersect) {
     if (Math.abs(position.z - pos.z) > 1) {
         pos.z = position.z;
     }
-    
+
     return pos;
 }
 
@@ -544,7 +546,7 @@ var panLeft = function () {
             var angle = -90;
             v.applyAxisAngle(axis, angle);
         }
-        
+
         //only move character if ground color is right
         if (currentColor == checkColor(v)) {
             cha.position.add(v);
@@ -570,7 +572,7 @@ var panUp = function () {
         var axis = new THREE.Vector3(0, 1, 0);
         var angle = -sceneGame.rotation.y;
         v.applyAxisAngle(axis, angle);
-        
+
         //if color under character is correct
         if (currentColor == checkColor(v)) {
             //move character
@@ -611,6 +613,7 @@ var pan = function () {
     };
 }();
 
+//TODO
 //started writing this, not currently in use
 function fakeGravity() {
     //****Get object under character****//
@@ -816,14 +819,18 @@ function builderfunc(e) {
     var intersects = raycaster.intersectObjects(objects);
     if (intersects.length > 0) {
         var i = 0;
-        do {
-            var intersect = intersects[i];
-            i++;
-        } while (intersect.object.name == "rollOverMesh");
-        if (e.ctrlKey) {
-            removeCube(intersect);
-        } else {
-            addCube(intersect);
+        try {
+            do {
+                var intersect = intersects[i];
+                i++;
+            } while (intersect.object.name == "rollOverMesh");
+            if (e.ctrlKey) {
+                removeCube(intersect);
+            } else {
+                addCube(intersect);
+            }
+        } catch (e) {
+            //Catch Statement
         }
     }
 }

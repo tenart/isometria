@@ -20,15 +20,19 @@ function builder(geometry, material) {
 
 function addCube(intersect) {
     var voxel = new THREE.Mesh(geometry.cube, material.cube);
-    if (intersect.object.name == "rollOverMesh") {
-        voxel.position.copy(intersect.object.position);
-    } else {
-        voxel.position.copy(intersect.object.position).add(intersect.face.normal);
+    try {
+        if (intersect.object.name == "rollOverMesh") {
+            voxel.position.copy(intersect.object.position);
+        } else {
+            voxel.position.copy(intersect.object.position).add(intersect.face.normal);
 
+        }
+        sceneBuilder.add(voxel);
+        objects.push(voxel);
+        bobjects.push(voxel);
+    } catch (e) {
+        //Catch Statement
     }
-    sceneBuilder.add(voxel);
-    objects.push(voxel);
-    bobjects.push(voxel);
 }
 
 //function addCubeP(position) {
