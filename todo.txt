@@ -1,0 +1,26 @@
+# Character
++ Move in 2D plane
++ Move by color
+- Smooth movement
+
+# World builder
+- Add/remove blocks
+- Stairs
+- Load level into editor
+
+# Main menu
++ Player can't rotate `game` or control character
+- UI
+
+# Save/load levels
+- Load
+- Save
+- Level menu
+- Browser
+
+# Gameplay
+
+# UI
+- Reset camera (rotations)
++ Change between scenes
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Pretty fly for a white guy - Main CSS -->
+    <link href="isometria.css" rel="stylesheet" type="text/css">
+    <title>Isometria</title>
+    <script src="js/three.min.js"></script>
+<!--    <script src="js/OrbitControls.js"></script>-->
+    <script src="js/ObjectControls.js"></script>
+</head>
+
+<body>
+<!--    <a href="/" style="font-family: 'Raleway', sans-serif; color: #212121; background-color: #eeeeee; padding: 5px 5px 5px 5px; left: 5px; font-size: 20px; position: fixed;bottom:1%;z-index: 99;">JW Home</a>-->
+    <div id="sceneSelection">
+        <input type="radio" name="scene" value="sceneMenuMain" checked>Main Menu<br>
+        <input type="radio" name="scene" value="sceneGame">Game<br>
+        <input type="radio" name="scene" value="sceneBuilder">Builder<br>
+        <br>
+        <input type="radio" name="face" value="cubeColor1">right<br>
+        <input type="radio" name="face" value="cubeColor2">left<br>
+        <input type="radio" name="face" value="cubeColor3" checked>top<br>
+        <input type="radio" name="face" value="cubeColor4">bottom<br>
+        <input type="radio" name="face" value="cubeColor5">front<br>
+        <input type="radio" name="face" value="cubeColor6">back
+    </div>
+    <div id="levelSelection">
+        <input type="text" name="currentLevel" value="level1">
+        <button type="button" onclick="saveLevel()">Save</button>
+        <button type="button" onclick="loadLevel()">Load</button>
+    </div>
+    <div id="menuMain" class="menu">
+        <button type="button" onclick="switchScene('sceneGame')">Start</button>
+        <br>
+        <button type="button" onclick="switchScene('sceneBuilder')">Builder</button>
+        <br>
+        <button type="button">Options</button>
+        <br>
+        <button type="button">Exit</button>
+    </div>
+    <div id="menuPause" class="menu">
+        <button type="button" onclick="pauseGame()">Resume</button>
+        <br>
+        <button type="button" onclick="">Level</button>
+        <br>
+        <button type="button" onclick="">Options</button>
+        <br>
+        <button type="button" onclick="switchScene('sceneMenuMain')">Main Menu</button>
+    </div>
+    <div id="debug">
+        <h3><input type="checkbox" name="debug" value="debug">Debug</h3>
+        <div id="debugA">
+        </div>
+    </div>
+    <div id="scene-container">
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+    <script type="text/javascript" src="js/builder.js"></script>
+    <script type="text/javascript" src="js/level1.js"></script>
+    <script type="text/javascript" src="js/isometria.js"></script>
+
+</html>
