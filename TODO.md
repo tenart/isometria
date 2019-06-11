@@ -1,5 +1,0 @@
-- [ ] Blocks the player can destroy
-- [ ] Blocks the player cannot destroy
-- [ ] Player has a character
-- [ ] Player can walk around
-- [ ] There is a goal on the map
