@@ -229,7 +229,8 @@ function createRenderer() {
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
 
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(1);
+//     renderer.setPixelRatio(window.devicePixelRatio);
 
     renderer.gammaFactor = 2.2;
     renderer.gammaOutput = true;
