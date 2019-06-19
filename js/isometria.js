@@ -40,12 +40,13 @@ var ctrlPressed = false;
 var characterColor = "#F29E38";
 var cubeColor1 = "#F24C3D"; //right
 var cubeColor2 = "#F24C3D"; //left
-var cubeColor3 = "#588C6B"; //top
+var cubeColor3 = "#588d6d"; //top
 var cubeColor4 = "#292828"; //bottom
 var cubeColor5 = "#021373"; //front
 var cubeColor6 = "#CBDEDC"; //back
 var currentColor = cubeColor3;
 var floorBlock = new THREE.Vector3();
+var moveSpeed = 100;
 
 //***************************
 //******* Game Setup ********
@@ -62,7 +63,7 @@ function init() {
 
     scene.background = new THREE.Color(0x8FBCD4);
     currentScene = "sceneMenuMain";
-    currentLevel = "level1";
+    //    currentLevel = "level1";
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
@@ -170,8 +171,13 @@ function createMaterials() {
     ];
 
 
-    const char = new THREE.MeshBasicMaterial({
-        color: characterColor
+    //    const char = new THREE.MeshBasicMaterial({
+    //        color: characterColor
+    //    });
+    var spriteMap = new THREE.TextureLoader().load("img/character.png");
+    const char = new THREE.SpriteMaterial({
+        map: spriteMap,
+        color: 0xffffff
     });
 
     const rollOver = new THREE.MeshBasicMaterial({
@@ -204,16 +210,10 @@ function createMeshes() {
     //****Game****//
     sceneGame = new THREE.Group();
     scene.add(sceneGame);
-    cha = new THREE.Group();
+    cha = new THREE.Sprite(material.char);
+    cha.center = new THREE.Vector2(0.5, 0);
 
-    switch (currentLevel) {
-        case "level1":
-            level1(geometry, material);
-            break;
-        default:
-            console.log("Level '" + currentLevel + "' not found!");
-            break;
-    }
+    loadLevel();
 
     //****Builder****//
     sceneBuilder = new THREE.Group();
@@ -253,8 +253,6 @@ function update() {
     sceneMenuMain.rotation.x += 0.01;
     sceneMenuMain.rotation.y += 0.01;
 
-    //    fakeGravity();
-
 
     //****Debugger****
     if ($("input[name='debug']")[0].checked == true) {
@@ -283,18 +281,6 @@ function update() {
 
 //renders every frame
 function render() {
-    //****Get object under mouse****//
-    //    raycaster.setFromCamera(mouse, camera);
-    //    var intersects = raycaster.intersectObjects(objects);
-    //    for (var i = 0; i < intersects.length; i++) {
-    //        //All intersections with mouse cursor
-    //    }
-
-
-    cha.castShadow = true;
-    //    objects.forEach(function (item) {
-    //        item.recieveShadow = true;
-    //    });
     renderer.render(scene, camera);
 }
 
@@ -348,16 +334,48 @@ function switchScene(scene) {
     camera.position.set(pos.position.x, pos.position.y, pos.position.z + 10);
 }
 
-//TODO
-//saves level
-function saveLevel() {
-    var level = $('input[name="currentLevel"]').val;
+//changes the level
+function switchLevel(level) {
+    if (level == currentLevel) {
+        return;
+    }
+    while (sceneGame.children.length > 1) {
+        if (sceneGame.children[0].type == "Mesh") {
+            sceneGame.remove(sceneGame.children[0]);
+            objects.splice(0, 1);
+        }
+    }
+    switch (level) {
+        case "level1":
+            level1(geometry, material);
+            break;
+        case "level2":
+            level2(geometry, material);
+            break;
+        default:
+            console.log("Level '" + level + "' not found!");
+            level = currentLevel;
+            break;
+    }
+    currentLevel = level;
 }
 
 //TODO
+//saves level
+function saveLevel() {
+    if (currentScene == "sceneBuilder") {
+        //children[1] is always the red hover box
+        for (var i = 0; i < sceneBuilder.children.length; i++) {
+            console.log("{" + sceneBuilder.children[i].position.x + ", " + sceneBuilder.children[i].position.y + ", " + sceneBuilder.children[i].position.z + "}");
+        }
+        var level = $('input[name="currentLevel"]').val();
+    }
+}
+
 //loads level
 function loadLevel() {
-    var level = $('input[name="currentLevel"]').val;
+    var level = $('input[name="currentLevel"]').val();
+    switchLevel(level);
 }
 
 
@@ -389,10 +407,14 @@ function toScreenPosition(obj, camera) {
 //checks the color under the character
 function checkColor(v) {
     //****Get object under character****//
+    //cal is reset variable
     var cal = cha.position.clone();
-    cha.position.add(v);
+    cha.position.copy(v);
 
+    //get screen-relative position
     var chaPos = toScreenPosition(cha, camera);
+    //    chaPos.x = (chaPos.x / window.innerWidth)  - 1;
+    //    chaPos.y = -(chaPos.y / window.innerHeight)  + 1;
     chaPos.x = (chaPos.x / window.innerWidth) * 2 - 1;
     chaPos.y = -(chaPos.y / window.innerHeight) * 2 + 1;
 
@@ -463,32 +485,32 @@ function relFacePos(chapos, intersect) {
         case 0:
         case 1: //right
             xyz = "x";
-            j += 1;
+            j += 0.5;
             break;
         case 2:
         case 3: //left
             xyz = "x";
-            j -= 1;
+            j -= 0.5;
             break;
         case 4:
         case 5: //top
             xyz = "y";
-            j += 1;
+            j += 0.5;
             break;
         case 6:
         case 7: //bottom
             xyz = "y";
-            j -= 1;
+            j -= 0.5;
             break;
         case 8:
         case 9: //front
             xyz = "z";
-            j += 1;
+            j += 0.5;
             break;
         case 10:
         case 11: //back
             xyz = "z";
-            j = -1;
+            j -= 0.5;
             break;
     }
 
@@ -519,152 +541,37 @@ function relFacePos(chapos, intersect) {
     return pos;
 }
 
-//handles moving character horizontally
-var panLeft = function () {
-
-    var v = new THREE.Vector3();
-
-    return function panLeft(distance, objectMatrix) {
-        v.setFromMatrixColumn(objectMatrix, 0); // get X column of objectMatrix
-        v.x = parseFloat(v.x.toFixed(3));
-        v.y = parseFloat(v.y.toFixed(3));
-        v.z = parseFloat(v.z.toFixed(3));
-        v.multiplyScalar(-distance);
-        v.x = parseFloat(v.x.toFixed(3));
-        v.y = parseFloat(v.y.toFixed(3));
-        v.z = parseFloat(v.z.toFixed(3));
-        v.z = -v.z;
-        var rot = ((sceneGame.rotation.y) * (180 / Math.PI)) % 360;
-        if ((rot >= 90 && rot <= 157.5) ||
-            (rot <= -202.5 && rot >= -270)) {
-            var axis = new THREE.Vector3(0, 1, 0);
-            var angle = 90;
-            v.applyAxisAngle(axis, angle);
-        } else if ((rot >= 202.5 && rot <= 247.5) ||
-            (rot <= -90 && rot >= -157.5)) {
-            var axis = new THREE.Vector3(0, 1, 0);
-            var angle = -90;
-            v.applyAxisAngle(axis, angle);
-        }
-
-        //only move character if ground color is right
-        if (currentColor == checkColor(v)) {
-            cha.position.add(v);
-        }
-    };
-}();
-
-//handles moving character vertically
-var panUp = function () {
-
-    var v = new THREE.Vector3();
-
-    return function panUp(distance, objectMatrix) {
-        v.setFromMatrixColumn(objectMatrix, 1);
-        v.x = parseFloat(v.x.toFixed(3));
-        v.y = parseFloat(v.y.toFixed(3));
-        v.z = parseFloat(v.z.toFixed(3));
-        v.multiplyScalar(distance);
-        v.x = parseFloat(v.x.toFixed(3));
-        v.y = parseFloat(v.y.toFixed(3));
-        v.z = parseFloat(v.z.toFixed(3));
-        v.z = -v.z;
-        var axis = new THREE.Vector3(0, 1, 0);
-        var angle = -sceneGame.rotation.y;
-        v.applyAxisAngle(axis, angle);
-
-        //if color under character is correct
-        if (currentColor == checkColor(v)) {
-            //move character
-            cha.position.add(v);
-
-            //ensure character is on the block
-            cha.position.x = floorBlock.x;
-            cha.position.y = floorBlock.y;
-            cha.position.z = floorBlock.z;
-        }
-    };
-
-}();
-
 //handles character movement
 // deltaX and deltaY are in pixels; right and down are positive
-var pan = function () {
+function pan(deltaX, deltaY) {
+    if (paused || currentScene != "sceneGame")
+        return;
 
-    var offset = new THREE.Vector3();
+    var element = $("body")[0];
 
-    return function pan(deltaX, deltaY) {
-        if (paused || currentScene != "sceneGame")
-            return;
+    scene.updateMatrixWorld();
+    var quat = new THREE.Quaternion();
+    quat.copy(sceneGame.quaternion);
 
-        var element = $("body")[0];
+    var position = new THREE.Vector3();
+    position.copy(cha.position);
 
-        // perspective 
-        var position = cha.position;
-        offset.copy(position);
+    position.applyQuaternion(quat);
 
-        // we use only clientHeight here so aspect ratio does not distort speed
-        scene.updateMatrixWorld();
-        var mat = sceneGame.clone();
-        mat.rotation.x = 0;
-        mat.updateMatrix();
-        panLeft(2 * deltaX / element.clientHeight, mat.matrix);
-        panUp(2 * deltaY / element.clientHeight, sceneGame.matrix);
-    };
-}();
+    position.x += deltaX / element.clientHeight;
+    position.y += deltaY / element.clientHeight;
 
-//TODO
-//started writing this, not currently in use
-function fakeGravity() {
-    //****Get object under character****//
-    //    var chaPos = toScreenPosition(cha, camera);
-    //    chaPos.x = (chaPos.x / window.innerWidth) * 2 - 1;
-    //    chaPos.y = -(chaPos.y / window.innerHeight) * 2 + 1;
+    position.applyQuaternion(quat.inverse());
 
-    var chaPos = cha.position.clone();
-    var groundColor;
-    var direction = new THREE.Vector3();
-    var destination = chaPos.clone();
+    if (currentColor == checkColor(position)) {
+        cha.position.copy(position);
 
-    //right
-    if (currentColor == cubeColor1) {
-        //-x
-        destination.x -= 10;
+        //ensure character is on the block
+        cha.position.x = floorBlock.x;
+        cha.position.y = floorBlock.y;
+        cha.position.z = floorBlock.z;
     }
-    //left
-    if (currentColor == cubeColor2) {
-        //+x
-        destination.x += 10;
-    }
-    //top
-    if (currentColor == cubeColor3) {
-        //-y
-        destination.y -= 10;
-    }
-    //bottom
-    if (currentColor == cubeColor4) {
-        //+y
-        destination.y += 10;
-    }
-    //front
-    if (currentColor == cubeColor5) {
-        //-z
-        destination.z -= 10;
-    }
-    //back
-    if (currentColor == cubeColor6) {
-        //+z
-        destination.z += 10;
-    }
-    raycaster.set(chaPos, direction.subVectors(destination, chaPos).normalize());
-    raycaster.far = 40;
-    var intersects = raycaster.intersectObjects(objects);
-    console.log(intersects[0]);
-
-    //    var intersects = raycaster.intersectObjects(objects);
-    //    cha.position.set()
-}
-
+};
 
 
 //***************************
@@ -702,22 +609,14 @@ function keyPress(ev) {
         return;
     }
     var keyCode = event.keyCode;
-    //character move speed multiplier
-    var moveSpeed = 100;
-    var offset = new THREE.Vector3();
-    var quat = new THREE.Quaternion().setFromUnitVectors(sceneGame.up, new THREE.Vector3(0, 1, 0));
-    var quatInverse = quat.clone().inverse();
 
     delta1.copy(cha.position);
-
-    // rotate offset to "y-axis-is-up" space
-    offset.applyQuaternion(quat);
 
     //game controls
     switch (keyCode) {
         case 68: //d
             //move char right
-            pan(-moveSpeed, 0);
+            pan(moveSpeed, 0);
             break;
         case 83: //s
             //move char down
@@ -725,7 +624,7 @@ function keyPress(ev) {
             break;
         case 65: //a
             //move char left
-            pan(moveSpeed, 0);
+            pan(-moveSpeed, 0);
             break;
         case 87: //w
             //move char up
@@ -754,11 +653,6 @@ function keyPress(ev) {
             ctrlPressed = true;
             break;
     }
-
-    // rotate offset back to "camera-up-vector-is-up" space
-    offset.applyQuaternion(quatInverse);
-
-    cha.position.add(offset);
 }
 
 //on key up event
