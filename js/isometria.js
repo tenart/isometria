@@ -230,7 +230,6 @@ function createRenderer() {
     renderer.setSize(container.clientWidth, container.clientHeight);
 
     renderer.setPixelRatio(1);
-//     renderer.setPixelRatio(window.devicePixelRatio);
 
     renderer.gammaFactor = 2.2;
     renderer.gammaOutput = true;
@@ -343,15 +342,19 @@ function switchLevel(level) {
     while (sceneGame.children.length > 1) {
         if (sceneGame.children[0].type == "Mesh") {
             sceneGame.remove(sceneGame.children[0]);
-            objects.splice(0, 1);
+            for (var k = 0; k < objects.length; k++) {
+                if (objects[k] === sceneGame.children[0]) {
+                    objects.splice(k,1);
+                }
+            }
         }
     }
     switch (level) {
         case "level1":
-            level1(geometry, material);
+            createLevel(level1,geometry,material);
             break;
         case "level2":
-            level2(geometry, material);
+            createLevel(level2,geometry,material);
             break;
         default:
             console.log("Level '" + level + "' not found!");
@@ -414,8 +417,6 @@ function checkColor(v) {
 
     //get screen-relative position
     var chaPos = toScreenPosition(cha, camera);
-    //    chaPos.x = (chaPos.x / window.innerWidth)  - 1;
-    //    chaPos.y = -(chaPos.y / window.innerHeight)  + 1;
     chaPos.x = (chaPos.x / window.innerWidth) * 2 - 1;
     chaPos.y = -(chaPos.y / window.innerHeight) * 2 + 1;
 
