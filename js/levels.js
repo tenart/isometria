@@ -1,3 +1,5 @@
+var levels = new Array();
+
 function createLevel(level, geometry, material) {
     cha.position.x = level[0];
     cha.position.y = level[1];
@@ -49,6 +51,7 @@ var level1 = [
     -5, 1, 1,
     -2, -2, 3,
 ];
+levels.push(level1);
 
 var level2 = [
     0, 0.5, 0,
@@ -60,3 +63,4 @@ var level2 = [
     0, 0, -1,
     1, 0, -1,
 ];
+levels.push(level2);

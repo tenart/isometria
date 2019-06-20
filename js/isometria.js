@@ -300,7 +300,7 @@ function onWindowResize() {
 
 window.addEventListener('resize', onWindowResize);
 
-//pauses the game
+//pauses/resumes the game
 function pauseGame() {
     if (paused) {
         paused = false;
@@ -320,25 +320,17 @@ function pauseGame() {
 function switchScene(scene) {
     currentScene = scene;
     var pos = new THREE.Object3D();
-    switch (currentScene) {
-        case "sceneMenuMain":
-            pos = sceneMenuMain;
-            break;
-        case "sceneGame":
-            pos = sceneGame;
-            break;
-        case "sceneBuilder":
-            pos = sceneBuilder;
-            break;
-    }
+    pos = eval(currentScene);
     camera.position.set(pos.position.x, pos.position.y, pos.position.z + 10);
 }
 
 //changes the level
 function switchLevel(level) {
+    //don't try to change the level if we don't need to
     if (level == currentLevel) {
         return;
     }
+    //unload level by removing blocks
     while (sceneGame.children.length > 1) {
         if (sceneGame.children[0].type == "Mesh") {
             sceneGame.remove(sceneGame.children[0]);
@@ -349,17 +341,15 @@ function switchLevel(level) {
             }
         }
     }
-    switch (level) {
-        case "level1":
-            createLevel(level1,geometry,material);
-            break;
-        case "level2":
-            createLevel(level2,geometry,material);
-            break;
-        default:
+    
+    //switch on level
+    for (var i = 0; i < levels.length; i++) {
+        try {
+            createLevel(eval(level),geometry,material);
+        } catch (e) {
             console.log("Level '" + level + "' not found!");
             level = currentLevel;
-            break;
+        }
     }
     currentLevel = level;
 }
@@ -428,12 +418,10 @@ function checkColor(v) {
     var fem;
     var i;
     for (var k = 0; k < intersects.length; k++) {
-
         if (fem != null) {
             if (intersects[k].faceIndex < 12 && intersects[k].distance < fem.distance) {
                 i = k;
             }
-
         } else {
             if (intersects[k].faceIndex < 12) {
                 fem = intersects[k];
@@ -444,32 +432,7 @@ function checkColor(v) {
     if (typeof i !== "undefined" && intersects[i].faceIndex < 12) {
         var j = 0;
         //change groundColor to correct face color
-        switch (intersects[i].faceIndex) {
-            case 0:
-            case 1: //right
-                groundColor = cubeColor1;
-                break;
-            case 2:
-            case 3: //left
-                groundColor = cubeColor2;
-                break;
-            case 4:
-            case 5: //top
-                groundColor = cubeColor3;
-                break;
-            case 6:
-            case 7: //bottom
-                groundColor = cubeColor4;
-                break;
-            case 8:
-            case 9: //front
-                groundColor = cubeColor5;
-                break;
-            case 10:
-            case 11: //back
-                groundColor = cubeColor6;
-                break;
-        }
+        groundColor = eval("cubeColor" + (Math.floor(intersects[i].faceIndex/2) + 1));
         floorBlock = relFacePos(cha.position, intersects[i]);
     }
     cha.position.set(cal.x, cal.y, cal.z);
@@ -479,56 +442,31 @@ function checkColor(v) {
 //gets relative position from cube face
 //used for character movement
 function relFacePos(chapos, intersect) {
-    var j = 0;
+    var j = -0.5;
     var pos = chapos.clone();
     var position = intersect.object.position;
 
-    switch (intersect.faceIndex) {
+    switch (Math.floor(intersect.faceIndex/2)) {
         case 0:
-        case 1: //right
+            j += 1;
+        case 1:
             xyz = "x";
-            j += 0.5;
             break;
         case 2:
-        case 3: //left
-            xyz = "x";
-            j -= 0.5;
+            j += 1;
+        case 3:
+            xyz = "y";
             break;
         case 4:
-        case 5: //top
-            xyz = "y";
-            j += 0.5;
-            break;
-        case 6:
-        case 7: //bottom
-            xyz = "y";
-            j -= 0.5;
-            break;
-        case 8:
-        case 9: //front
+            j += 1;
+        case 5:
             xyz = "z";
-            j += 0.5;
-            break;
-        case 10:
-        case 11: //back
-            xyz = "z";
-            j -= 0.5;
             break;
     }
 
     //switch for updating x/y/z
-    switch (xyz) {
-        case "x":
-            pos.x = position.x + j;
-            break;
-        case "y":
-            pos.y = position.y + j;
-            break;
-        case "z":
-            pos.z = position.z + j;
-            break;
-    }
-
+    pos[xyz] = eval("position."+xyz)+j;
+    
     //ensures pos is never more than 1 block from intersect
     if (Math.abs(position.x - pos.x) > 1) {
         pos.x = position.x;
@@ -682,26 +620,7 @@ function radioButtons() {
         switchScene(currentScene);
     }
 
-    switch ($("input[name='face']:checked").val()) {
-        case "cubeColor1":
-            currentColor = cubeColor1;
-            break;
-        case "cubeColor2":
-            currentColor = cubeColor2;
-            break;
-        case "cubeColor3":
-            currentColor = cubeColor3;
-            break;
-        case "cubeColor4":
-            currentColor = cubeColor4;
-            break;
-        case "cubeColor5":
-            currentColor = cubeColor5;
-            break;
-        case "cubeColor6":
-            currentColor = cubeColor6;
-            break;
-    }
+    currentColor = eval($("input[name='face']:checked").val());
 }
 
 //handles block placement/removal in builder
