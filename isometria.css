@@ -66,6 +66,34 @@ a:hover{
 #menuMain {
 }
 
+.mobileControls {
+    position: absolute;
+    background: rgba(78, 78, 78, 0.39);
+    width: 30%;
+    height: 30%;
+    z-index: 999;
+}
+
+#moveUp {
+    top: 0px;
+    left: 35%;
+}
+
+#moveDown {
+    top: 70%;
+    left: 35%;
+}
+
+#moveLeft {
+    top: 35%;
+    left: 0px;
+}
+
+#moveRight {
+    top: 35%;
+    left: 70%;
+}
+
 #scene-container {
   position: absolute;
   width: 100%;

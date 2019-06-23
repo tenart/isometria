@@ -364,6 +364,16 @@ function saveLevel() {
         }
         var level = $('input[name="currentLevel"]').val();
     }
+    writeStuff();
+}
+
+function writeStuff() {
+    var fh = fopen("test.js");
+    if (fh!=-1) {
+        var str = "here's some text boi";
+        fwrite(fh,str);
+    }
+    fclose(fh);
 }
 
 //loads level
@@ -430,6 +440,7 @@ function checkColor(v) {
         }
     }
     if (typeof i !== "undefined" && intersects[i].faceIndex < 12) {
+//        console.log(intersects[i].point);
         var j = 0;
         //change groundColor to correct face color
         groundColor = eval("cubeColor" + (Math.floor(intersects[i].faceIndex/2) + 1));
@@ -445,6 +456,21 @@ function relFacePos(chapos, intersect) {
     var j = -0.5;
     var pos = chapos.clone();
     var position = intersect.object.position;
+    
+    var vec = new THREE.Vector3();
+    vec.setFromMatrixPosition(intersect.object.matrixWorld);
+//    var quat = new THREE.Quaternion();
+//    quat.copy(sceneGame.quaternion);
+//    var q = intersect.point;
+//    q.applyQuaternion(quat.inverse());
+    
+    console.log(vec);
+//    console.log(intersect.object.position);
+//    console.log(q);
+//    console.log(intersect.point);
+    
+//    var position = intersect.point;
+//    position.x -= 50;
 
     switch (Math.floor(intersect.faceIndex/2)) {
         case 0:
@@ -513,6 +539,32 @@ function pan(deltaX, deltaY) {
     }
 };
 
+function moveUp() {
+    pan(0, moveSpeed);
+}
+
+function moveDown() {
+    pan(0, -moveSpeed);
+}
+function moveLeft() {
+    pan(-moveSpeed, 0);
+}
+function moveRight() {
+    pan(moveSpeed, 0);
+}
+function rotateUp() {
+    sceneGame.rotation.x -= Math.PI / 4;
+}
+function rotateDown() {
+    sceneGame.rotation.x += Math.PI / 4;
+}
+function rotateLeft() {
+    sceneGame.rotation.y -= Math.PI / 4;
+}
+function rotateRight() {
+    sceneGame.rotation.y += Math.PI / 4;
+}
+
 
 //***************************
 //********* Events **********
@@ -555,36 +607,28 @@ function keyPress(ev) {
     //game controls
     switch (keyCode) {
         case 68: //d
-            //move char right
-            pan(moveSpeed, 0);
+            moveRight();
             break;
         case 83: //s
-            //move char down
-            pan(0, -moveSpeed);
+            moveDown();
             break;
         case 65: //a
-            //move char left
-            pan(-moveSpeed, 0);
+            moveLeft();
             break;
         case 87: //w
-            //move char up
-            pan(0, moveSpeed);
+            moveUp();
             break;
         case 39: //right
-            //rotate game right
-            sceneGame.rotation.y -= Math.PI / 4;
+            rotateRight();
             break;
         case 40: //down
-            //rotate game down
-            sceneGame.rotation.x += Math.PI / 4;
+            rotateDown();
             break;
         case 37: //left
-            //rotate game left
-            sceneGame.rotation.y += Math.PI / 4;
+            rotateLeft();
             break;
         case 38: //up
-            //rotate game up
-            sceneGame.rotation.x -= Math.PI / 4;
+            rotateUp();
             break;
         case 27: //esc
             pauseGame();
