@@ -553,10 +553,20 @@ function moveRight() {
     pan(moveSpeed, 0);
 }
 function rotateUp() {
-    sceneGame.rotation.x -= Math.PI / 4;
+    if (((sceneGame.rotation.x - (Math.PI / 4)) * (180 / Math.PI).toFixed(3)) > -90) {
+        sceneGame.rotation.x -= Math.PI / 4;
+    }
+    else {
+        sceneGame.rotation.x = (-90 * Math.PI/180);
+    }
 }
 function rotateDown() {
-    sceneGame.rotation.x += Math.PI / 4;
+    if (((sceneGame.rotation.x + (Math.PI / 4)) * (180 / Math.PI).toFixed(3)) < 90) {
+        sceneGame.rotation.x += Math.PI / 4;
+    }
+    else {
+        sceneGame.rotation.x = 90 * Math.PI/180;
+    }
 }
 function rotateLeft() {
     sceneGame.rotation.y -= Math.PI / 4;
