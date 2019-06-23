@@ -38,11 +38,11 @@ var paused = false;
 var objects = [];
 var ctrlPressed = false;
 var characterColor = "#F29E38";
-var cubeColor1 = "#F24C3D"; //right
-var cubeColor2 = "#F24C3D"; //left
-var cubeColor3 = "#588d6d"; //top
-var cubeColor4 = "#292828"; //bottom
-var cubeColor5 = "#021373"; //front
+var cubeColor1 = "#e01d55"; //right
+var cubeColor2 = "#e01d55"; //left
+var cubeColor3 = "#04ddec"; //top
+var cubeColor4 = "#674bee"; //bottom
+var cubeColor5 = "#f7cc63"; //front
 var cubeColor6 = "#CBDEDC"; //back
 var currentColor = cubeColor3;
 var floorBlock = new THREE.Vector3();
@@ -61,7 +61,7 @@ function init() {
     // create a Scene
     scene = new THREE.Scene();
 
-    scene.background = new THREE.Color(0x8FBCD4);
+    scene.background = new THREE.Color(0x223254);
     currentScene = "sceneMenuMain";
     //    currentLevel = "level1";
     raycaster = new THREE.Raycaster();
