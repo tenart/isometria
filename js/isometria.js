@@ -88,8 +88,8 @@ function init() {
 //sets coords of scenes to fake their separation
 function createSceneCoords() {
     sceneMenuMain.position.set(0, 0, 0);
-    sceneGame.position.set(50, 0, 0);
-    sceneBuilder.position.set(100, 0, 0);
+    sceneGame.position.set(350, 0, 0);
+    sceneBuilder.position.set(-350, 0, 0);
 }
 
 //creates camera
@@ -99,7 +99,7 @@ function createCamera() {
     const aspect = container.clientWidth / container.clientHeight;
 
     const near = 0.1;
-    const far = 100;
+    const far = 200;
 
     camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
@@ -111,6 +111,7 @@ function createCamera() {
 //world rotation controls
 function createControls() {
     controls = new THREE.ObjectControls(camera, container, sceneGame);
+    controls.setDistance(5,100);
 }
 
 //creates lights
@@ -321,7 +322,11 @@ function switchScene(scene) {
     currentScene = scene;
     var pos = new THREE.Object3D();
     pos = eval(currentScene);
-    camera.position.set(pos.position.x, pos.position.y, pos.position.z + 10);
+    if (scene == "sceneMenuMain") {
+        camera.position.set(pos.position.x, pos.position.y, pos.position.z + 10);
+    } else {
+        camera.position.set(pos.position.x, pos.position.y, pos.position.z + 20);
+    }
 }
 
 //changes the level
@@ -553,26 +558,38 @@ function moveRight() {
     pan(moveSpeed, 0);
 }
 function rotateUp() {
-    if (((sceneGame.rotation.x - (Math.PI / 4)) * (180 / Math.PI).toFixed(3)) > -90) {
-        sceneGame.rotation.x -= Math.PI / 4;
-    }
-    else {
-        sceneGame.rotation.x = (-90 * Math.PI/180);
+    if (currentScene != "sceneMenuMain") {
+        var scene = eval(currentScene);
+        if (((scene.rotation.x - (Math.PI / 4)) * (180 / Math.PI).toFixed(3)) > -90) {
+            scene.rotation.x -= Math.PI / 4;
+        }
+        else {
+            scene.rotation.x = (-90 * Math.PI/180);
+        }
     }
 }
 function rotateDown() {
-    if (((sceneGame.rotation.x + (Math.PI / 4)) * (180 / Math.PI).toFixed(3)) < 90) {
-        sceneGame.rotation.x += Math.PI / 4;
-    }
-    else {
-        sceneGame.rotation.x = 90 * Math.PI/180;
+    if (currentScene != "sceneMenuMain") {
+        var scene = eval(currentScene);
+        if (((scene.rotation.x + (Math.PI / 4)) * (180 / Math.PI).toFixed(3)) < 90) {
+            scene.rotation.x += Math.PI / 4;
+        }
+        else {
+            scene.rotation.x = 90 * Math.PI/180;
+        }
     }
 }
 function rotateLeft() {
-    sceneGame.rotation.y -= Math.PI / 4;
+    if (currentScene != "sceneMenuMain") {
+        var scene = eval(currentScene);
+        scene.rotation.y -= Math.PI / 4;
+    }
 }
 function rotateRight() {
-    sceneGame.rotation.y += Math.PI / 4;
+    if (currentScene != "sceneMenuMain") {
+        var scene = eval(currentScene);
+        scene.rotation.y += Math.PI / 4;
+    }
 }
 
 
